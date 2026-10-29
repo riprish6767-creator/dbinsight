@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#111827">
+    <title>InsightSQL</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="InsightSQL home">
+        <span class="brand-mark" aria-hidden="true">i</span>
+        <span>insight<span class="brand-accent">SQL</span></span>
+      </a>
+      <div id="connection-status" class="connection-status" role="status">
+        <span class="status-dot"></span>
+        Connecting to database…
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="workspace" aria-labelledby="page-title">
+        <div class="intro">
+          <p class="eyebrow">EMPLOYEE MANAGEMENT DATABASE</p>
+          <h1 id="page-title">Ask your data.</h1>
+          <p class="intro-copy">
+            Ask a question in plain language. InsightSQL generates a
+            read-only query and shows you the SQL before displaying results.
+          </p>
+        </div>
+
+        <form id="question-form" class="question-card">
+          <label for="question">What would you like to know?</label>
+          <textarea
+            id="question"
+            name="question"
+            rows="3"
+            maxlength="2000"
+            placeholder="For example: How many employees are in each department?"
+            required
+          ></textarea>
+          <div class="form-footer">
+            <span class="hint">Only read-only SELECT queries can run.</span>
+            <button id="ask-button" class="button button-primary" type="submit">
+              <span class="button-label">Ask question</span>
+              <span class="button-spinner" aria-hidden="true"></span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </form>
+
+        <div id="error-message" class="error-message" role="alert" hidden></div>
+
+        <section id="sql-section" class="result-section" aria-labelledby="sql-heading" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">GENERATED QUERY</p>
+              <h2 id="sql-heading">Review the SQL</h2>
+            </div>
+            <span class="readonly-badge">READ ONLY</span>
+          </div>
+          <label class="sr-only" for="sql-editor">SQL query editor</label>
+          <textarea id="sql-editor" class="sql-editor" rows="5" spellcheck="false"></textarea>
+          <div class="sql-footer">
+            <span class="hint">You can review or edit the SELECT before running.</span>
+            <button id="run-sql-button" class="button button-secondary" type="button">
+              Run SQL <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </section>
+
+        <section id="results-section" class="result-section" aria-labelledby="results-heading" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">QUERY RESULTS</p>
+              <h2 id="results-heading">Results</h2>
+            </div>
+            <span id="result-meta" class="result-meta"></span>
+          </div>
+          <p id="truncated-message" class="truncated-message" hidden></p>
+          <div id="results-table" class="table-wrap"></div>
+        </section>
+      </section>
+
+      <aside class="sidebar" aria-labelledby="history-heading">
+        <div class="sidebar-heading">
+          <div>
+            <p class="eyebrow">RECENT ACTIVITY</p>
+            <h2 id="history-heading">Query history</h2>
+          </div>
+          <span id="history-count" class="history-count">0</span>
+        </div>
+        <p class="sidebar-copy">Your recent questions and SQL, stored locally.</p>
+        <ol id="history-list" class="history-list"></ol>
+        <p id="history-empty" class="history-empty">Your queries will appear here.</p>
+        <div class="privacy-note">
+          <span class="privacy-icon" aria-hidden="true">●</span>
+          <p>History is local to this machine and retained for up to 30 days.</p>
+        </div>
+      </aside>
+    </main>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>
